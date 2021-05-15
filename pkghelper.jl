@@ -45,12 +45,30 @@ end
 function displayInfo(self::JuliaHelper)
     println("server : ", self.server)
     println("registries: ")
-    allpkgs = self.dependencies.vals
-    for reg in allpkgs
-        if reg != undef
-            uuid::UUID = reg.uuid
-            name:String = reg.name
-            println(uuid, name)
+    let deps = jh.dependencies
+        for (uuid, pkginfo) in deps
+            #            println(typeof(uuid))
+            pkgdeps = pkginfo.dependencies
+            println(
+                uuid,
+                pkginfo.name,
+                "|",
+                pkginfo.version,
+                "|",
+                pkginfo.is_direct_dep,
+                "|",
+                pkginfo.is_pinned,
+                "|",
+                pkginfo.is_tracking_path,
+                "|",
+                pkginfo.git_revision,
+                "|",
+                pkginfo.git_source,
+                "|",
+                pkginfo.source,
+            )
+            #pkgdeps)
+            #println(uuid.name)
         end
     end
 end
